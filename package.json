@@ -1,0 +1,25 @@
+{
+  "name": "processogramschmidt",
+  "version": "1.0.0",
+  "description": "Implementação do Processo de Gram-Schmidt",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node script/index.js"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaqueuchoab/processoGramSchmidt.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jaqueuchoab/processoGramSchmidt/issues"
+  },
+  "homepage": "https://github.com/jaqueuchoab/processoGramSchmidt#readme",
+  "dependencies": {
+    "mathjs": "^11.8.0",
+    "prompt-sync": "^4.2.0"
+  }
+}
