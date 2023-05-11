@@ -12,7 +12,7 @@ function povarBase(espacoVetorial) {
     por ter "n" vetores com "n" coordenadas
     */
    
-   let base = [];
+    let base = [];
 
     for(let i = 0; i < espacoVetorial; i++) {
         base[i] = [];
@@ -29,7 +29,7 @@ function imprimirBase(base) {
     /*  String impressao utilizada para concatenar os elementos
         e evitar a quebra de linha do console.log();
     */
-    if(validacao(base)) {
+    if(validacao(base) == true) {
         let impressaoBase = 'B = {';
 
         for(let i = 0; i < espacoVetorial; i++) {
@@ -63,7 +63,8 @@ function recuperarVetor(base, indice) {
         normal da algebra e nao o indice do vetor
     */
 
-    if(validacao(base)) {
+    if(validacao(base) == true) {
+        
         if(indice > base.length || indice < 1)
             console.log('Erro, índice inexistente no espaço vetorial!');
         else {
@@ -75,7 +76,8 @@ function recuperarVetor(base, indice) {
 }
 
 function imprimirVetor(vetor, apelido) {
-    if(validacao(vetor)) {
+    
+    if(validacao(vetor) == true) {
         let impressaoVetor = `${apelido} = (`;
         
         for(let i in vetor) {
@@ -93,7 +95,8 @@ function imprimirVetor(vetor, apelido) {
 }
 
 function calcularProdutoInterno(vetorA, vetorB) {
-    if(validacao(vetorA) && validacao(vetorB)) {
+    
+    if(validacao(vetorA) == true && validacao(vetorB) == true) {
         let vetorResultante = math.dot(vetorA, vetorB);
         return vetorResultante;
         
@@ -102,7 +105,8 @@ function calcularProdutoInterno(vetorA, vetorB) {
 }
 
 function calcularNorma(vetor) {
-    if(validacao(vetor)) {
+    
+    if(validacao(vetor) == true) {
         let vetorResultante = math.sqrt(calcularProdutoInterno(vetor, vetor));
         return vetorResultante;
 
@@ -118,7 +122,9 @@ function validacao(elemento) {
 }
 
 function validarOrtogonais(base) {
-    if(validacao(base)) {
+    
+    if(validacao(base) == true) {
+
         let statusOrtogonal = true;
         let pararLoops;
 
@@ -126,7 +132,7 @@ function validarOrtogonais(base) {
             for(let j = 0; j < base.length; j++) {
                 
                 if(i != j) {
-                    if(math.round(calcularProdutoInterno(base[i], base[j])) != 0)
+                    if(calcularProdutoInterno(base[i], base[j]) != 0)
                         statusOrtogonal = false;
                         pararLoops = true;
                         break;
@@ -144,11 +150,12 @@ function validarOrtogonais(base) {
 }
 
 function validarOrtonormais(base) {
+    
     let statusOrtonormal = true;
     let pararLoops;
     
-    if(validacao(base)) {
-        if(validarOrtogonais == true) {
+    if(validacao(base) == true) {
+        if(validarOrtogonais(base) == true) {
 
             for(let i = 0; i < base.length; i++) {
                 for(let j = 0; j < base.length; j++) {
