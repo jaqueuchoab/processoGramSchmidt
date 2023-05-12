@@ -4,15 +4,11 @@
 
 import promptFunction from 'prompt-sync';
 import * as math from 'mathjs';
+import Validacoes from './Validacoes.js';
 
 const prompt = promptFunction();
 
-export default class FerramentasAux {
-  constructor() {
-    this.base;
-    this.espacoVetorial;
-  }
-
+export default class FerramentasAux extends Validacoes{
   povoarBase(espacoVetorial) {
     /*  Usando a dimensao do espaco vetorial como condicao,
     a definicao de base esta sendo perfeitamente implementada
@@ -134,101 +130,9 @@ export default class FerramentasAux {
     }
   }
 
-  validar(elemento) {
-    if (elemento != undefined) return true;
-    else return false;
-  }
-
-  validarBaseOrtogonal(base) {
-    if (validar(base) == true) {
-      let statusOrtogonal = true;
-      let pararLoops;
-
-      for (let i = 0; i < base.length; i++) {
-        for (let j = 0; j < base.length; j++) {
-          if (i != j) {
-            if (calcularProdutoInterno(base[i], base[j]) != 0)
-              statusOrtogonal = false;
-            pararLoops = true;
-            break;
-          }
-        }
-
-        if (pararLoops == true) break;
-      }
-
-      return statusOrtogonal;
-    } else console.log('Erro, ao menos um dos vetores não existe!');
-  }
-
-  validarBaseOrtonormal(base) {
-    let statusOrtonormal = true;
-    let pararLoops;
-
-    if (validar(base) == true) {
-      if (validarBaseOrtogonal(base) == true) {
-        for (let i = 0; i < base.length; i++) {
-          for (let j = 0; j < base.length; j++) {
-            if (i == j) {
-              if (math.round(calcularNormaVetor(base[i], base[j])) != 1) {
-                statusOrtonormal = false;
-                pararLoops = true;
-                break;
-              }
-            }
-          }
-
-          if (pararLoops == true) break;
-        }
-
-        return statusOrtonormal;
-      } else {
-        console.log('Base não ortogonal, logo, não pode ser ortonormal');
-        return false;
-      }
-    } else console.log('Erro, ao menos um dos vetores não existe!');
-  }
-
-  calcularBaseOrtogonal(base) {
-    if (validarBaseOrtogonal(base) == false) {
-      let novaBase = base[0];
-      let wAtual;
-      let wDefinitivo;
-
-      for (let i = 1; i < base.length; i++) {
-        for (let j = 1; j < base.length; j++) {
-          if (j == 1)
-            wAtual = subtrairVetores(
-              base[i],
-              math.dot(
-                calcularProdutoInterno(base[i], novaBase[i - 1]) /
-                  calcularProdutoInterno(novaBase[i - 1], novaBase[i - 1]),
-                novaBase[i - 1],
-              ),
-            );
-          else
-            wAtual = subtrairVetores(
-              wAtual,
-              math.dot(
-                calcularProdutoInterno(base[i], novaBase[i - 1]) /
-                  calcularProdutoInterno(novaBase[i - 1], novaBase[i - 1]),
-                novaBase[i - 1],
-              ),
-            );
-        }
-
-        novaBase.push(wAtual);
-      }
-
-      return novaBase;
-    } else {
-      console.log('Base já é ortogonal, não há necessidade de ortogonalizar!');
-    }
-  }
-
   init() {
-    this.base = [];
-    this.espacoVetorial = prompt(
+    super.base = [];
+    super.espacoVetorial = prompt(
       'Digite a dimensão do espaço vetorial desejado: ',
     );
 
