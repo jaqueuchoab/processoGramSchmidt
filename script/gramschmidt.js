@@ -29,7 +29,7 @@ function imprimirBase(base) {
     /*  String impressao utilizada para concatenar os elementos
         e evitar a quebra de linha do console.log();
     */
-    if(validacao(base) == true) {
+    if(validar(base) == true) {
         let impressaoBase = 'B = {';
 
         for(let i = 0; i < espacoVetorial; i++) {
@@ -63,7 +63,7 @@ function recuperarVetor(base, indice) {
         normal da algebra e nao o indice do vetor
     */
 
-    if(validacao(base) == true) {
+    if(validar(base) == true) {
         
         if(indice > base.length || indice < 1)
             console.log('Erro, índice inexistente no espaço vetorial!');
@@ -77,7 +77,7 @@ function recuperarVetor(base, indice) {
 
 function imprimirVetor(vetor, apelido) {
     
-    if(validacao(vetor) == true) {
+    if(validar(vetor) == true) {
         let impressaoVetor = `${apelido} = (`;
         
         for(let i in vetor) {
@@ -96,7 +96,7 @@ function imprimirVetor(vetor, apelido) {
 
 function calcularProdutoInterno(vetorA, vetorB) {
     
-    if(validacao(vetorA) == true && validacao(vetorB) == true) {
+    if(validar(vetorA) == true && validar(vetorB) == true) {
         let vetorResultante = math.dot(vetorA, vetorB);
         return vetorResultante;
         
@@ -104,9 +104,9 @@ function calcularProdutoInterno(vetorA, vetorB) {
         console.log('Erro, ao menos um dos vetores não existe!');
 }
 
-function calcularNorma(vetor) {
+function calcularNormaVetor(vetor) {
     
-    if(validacao(vetor) == true) {
+    if(validar(vetor) == true) {
         let vetorResultante = math.sqrt(calcularProdutoInterno(vetor, vetor));
         return vetorResultante;
 
@@ -114,16 +114,46 @@ function calcularNorma(vetor) {
         console.log('Erro, vetor não existe!');
 }
 
-function validacao(elemento) {
+function subtrairVetores(vetorA, vetorB) {
+    let vetorResultante = [];
+    
+    if(validar(vetorA) == true || validar(vetorB) == true) {
+        for(let i = 0; i < vetorA.length; i++) {
+            vetorResultante.push(vetorA[i] - vetorB[i]);
+        }
+
+        return vetorResultante;
+
+    } else {
+        console.log('Erro, ao menos um dos vetores não existe!');
+    }
+}
+
+function produtoVetorConstante(vetor, constante) {
+    let vetorResultante = [];
+    
+    if(validar(vetor) == true) {
+        for(let i = 0; i < vetorA.length; i++) {
+            vetorResultante.push(vetorA[i] * constante);
+        }
+
+        return vetorResultante;
+
+    } else {
+        console.log('Erro, ao menos um dos vetores não existe!');
+    }
+}
+
+function validar(elemento) {
     if(elemento != undefined)
         return true;
     else
         return false;
 }
 
-function validarOrtogonais(base) {
+function validarBaseOrtogonal(base) {
     
-    if(validacao(base) == true) {
+    if(validar(base) == true) {
 
         let statusOrtogonal = true;
         let pararLoops;
@@ -149,19 +179,19 @@ function validarOrtogonais(base) {
         console.log('Erro, ao menos um dos vetores não existe!');
 }
 
-function validarOrtonormais(base) {
+function validarBaseOrtonormal(base) {
     
     let statusOrtonormal = true;
     let pararLoops;
     
-    if(validacao(base) == true) {
-        if(validarOrtogonais(base) == true) {
+    if(validar(base) == true) {
+        if(validarBaseOrtogonal(base) == true) {
 
             for(let i = 0; i < base.length; i++) {
                 for(let j = 0; j < base.length; j++) {
 
                     if(i == j) {
-                        if(math.round(calcularNorma(base[i], base[j])) != 1) {
+                        if(math.round(calcularNormaVetor(base[i], base[j])) != 1) {
                             statusOrtonormal = false;
                             pararLoops = true;
                             break;
@@ -184,6 +214,30 @@ function validarOrtonormais(base) {
         console.log('Erro, ao menos um dos vetores não existe!');
 }
 
+function calcularBaseOrtogonal(base) {
+    if(validarBaseOrtogonal(base) == false) {
+        let novaBase = base[0];
+        let wAtual;
+        let wDefinitivo;
+
+        for(let i = 1; i < base.length; i++) {
+            for(let j = 1; j < base.length; j++) {
+                if(j == 1)
+                    wAtual = subtrairVetores(base[i], (math.dot((calcularProdutoInterno(base[i], novaBase[i-1]) / calcularProdutoInterno(novaBase[i-1], novaBase[i-1])), novaBase[i-1])));
+                else
+                    wAtual = subtrairVetores(wAtual, (math.dot((calcularProdutoInterno(base[i], novaBase[i-1]) / calcularProdutoInterno(novaBase[i-1], novaBase[i-1])), novaBase[i-1])));
+            }
+
+            novaBase.push(wAtual);
+        }
+
+        return novaBase;
+
+    } else {
+        console.log('Base já é ortogonal, não há necessidade de ortogonalizar!');
+    }
+}
+
 let base = [];
 let espacoVetorial;
 
@@ -198,6 +252,10 @@ imprimirVetor(v1, 'v1');
 v2 = recuperarVetor(base, 2);
 imprimirVetor(v2, 'v2');
 
-console.log('Norma de v1:', calcularNorma(v1));
-console.log('É ortogonal?', validarOrtogonais(base));
-console.log('É ortonormal?', validarOrtonormais(base));
+console.log('Norma de v1:', calcularNormaVetor(v1));
+console.log('É ortogonal?', validarBaseOrtogonal(base));
+console.log('É ortonormal?', validarBaseOrtonormal(base));
+
+if(validarBaseOrtogonal(base) == false) {
+    console.log(calcularBaseOrtogonal(base));
+}
