@@ -34,17 +34,17 @@ export default class FerramentasAux {
     /*  String impressao utilizada para concatenar os elementos
         e evitar a quebra de linha do console.log();
     */
-    if (validar(base) == true) {
+    if (this.validar(base) == true) {
       let impressaoBase = 'B = {';
 
-      for (let i = 0; i < espacoVetorial; i++) {
-        for (let j = 0; j < espacoVetorial; j++) {
+      for (let i = 0; i < this.espacoVetorial; i++) {
+        for (let j = 0; j < this.espacoVetorial; j++) {
           if (j == 0) impressaoBase += `(${base[i][j]},`;
-          else if (j != espacoVetorial - 1) impressaoBase += `${base[i][j]},`;
+          else if (j != this.espacoVetorial - 1) impressaoBase += `${base[i][j]},`;
           else impressaoBase += `${base[i][j]})`;
         }
 
-        if (i != espacoVetorial - 1) impressaoBase += ',';
+        if (i != this.espacoVetorial - 1) impressaoBase += ',';
         else impressaoBase += '}';
       }
 
@@ -55,18 +55,18 @@ export default class FerramentasAux {
   recuperarVetor(base, indice) {
     /*  Recuperando um unico vetor, deve-se utilizar a  ordem normal da algebra e nao o indice do vetor
      */
-    if (validar(base) == true) {
+    if (this.validar(base) == true) {
       if (indice > base.length || indice < 1)
         console.log('Erro, índice inexistente no espaço vetorial!');
       else {
-        vetor = base[indice - 1];
+        const vetor = this.base[indice - 1];
         return vetor;
       }
     } else console.log('Erro, base inválida, povoe-a primeiro');
   }
 
   imprimirVetor(vetor, apelido) {
-    if (validar(vetor) == true) {
+    if (this.validar(vetor) == true) {
       let impressaoVetor = `${apelido} = (`;
 
       for (let i in vetor) {
@@ -79,21 +79,21 @@ export default class FerramentasAux {
   }
 
   calcularProdutoInterno(vetorA, vetorB) {
-    if (validar(vetorA) == true && validar(vetorB) == true) {
+    if (this.validar(vetorA) == true && this.validar(vetorB) == true) {
       let vetorResultante = math.dot(vetorA, vetorB);
       return vetorResultante;
     } else console.log('Erro, ao menos um dos vetores não existe!');
   }
 
   calcularNormaVetor(vetor) {
-    if (validar(vetor) == true) {
-      let vetorResultante = math.sqrt(calcularProdutoInterno(vetor, vetor));
+    if (this.validar(vetor) == true) {
+      let vetorResultante = math.sqrt(this.calcularProdutoInterno(vetor, vetor));
       return vetorResultante;
     } else console.log('Erro, vetor não existe!');
   }
 
   calcularNormaBase(base) {
-    if (validar(base) == true) {
+    if (this.validar(base) == true) {
       let norma = [];
 
       for (let i = 1; i <= base.length; i++) {
@@ -109,7 +109,7 @@ export default class FerramentasAux {
   subtrairVetores(vetorA, vetorB) {
     let vetorResultante = [];
 
-    if (validar(vetorA) == true || validar(vetorB) == true) {
+    if (this.validar(vetorA) == true || this.validar(vetorB) == true) {
       for (let i = 0; i < vetorA.length; i++) {
         vetorResultante.push(vetorA[i] - vetorB[i]);
       }
@@ -123,7 +123,7 @@ export default class FerramentasAux {
   produtoVetorConstante(vetor, constante) {
     let vetorResultante = [];
 
-    if (validar(vetor) == true) {
+    if (this.validar(vetor) == true) {
       for (let i = 0; i < vetorA.length; i++) {
         vetorResultante.push(vetorA[i] * constante);
       }
