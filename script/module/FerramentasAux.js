@@ -14,9 +14,7 @@ export default class FerramentasAux extends Validacoes {
     a definicao de base esta sendo perfeitamente implementada
     por ter "n" vetores com "n" coordenadas
     */
-    this.base = [];
-
-    for (let i = 0; i < this.this.espacoVetorial; i++) {
+    for (let i = 0; i < this.espacoVetorial; i++) {
       this.base[i] = [];
       for (let j = 0; j < this.this.espacoVetorial; j++)
         this.base[i][j] = prompt(`Digite o ${j + 1}º elemento do v${i + 1}: `);
