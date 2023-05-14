@@ -124,7 +124,7 @@ function calcularDivisaoVetorConstante(vetor, constante) {
 
 	if (validar(vetor) == true) {
 		for (let i = 0; i < vetor.length; i++) {
-			vetorResultante.push(parseFloat(vetor[i] / constante).toFixed(5));
+			vetorResultante.push(vetor[i] / constante);
 		}
 
 		return vetorResultante;
@@ -229,6 +229,7 @@ function calcularBaseOrtonormal(base) {
 	if (validarBaseOrtonormal(base) == false) {
 		let novaBase = [];
 		let i = 0;
+		console.log(base.length);
 
 		do {
 			novaBase.push(calcularNormalizacaoVetor(base[i]));
