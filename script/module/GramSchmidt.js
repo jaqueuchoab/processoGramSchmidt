@@ -1,6 +1,14 @@
 import FerramentasAux from './FerramentasAux.js';
 
 export default class GramSchmidt extends FerramentasAux{
+  calcularRazaoGramSchmidt(baseV, baseW) {
+    wAtual =
+      (calcularProdutoInterno(baseV, baseW)) /
+      (calcularProdutoInterno(baseW, baseW));
+    wDefinitivo = calcularProdutoVetorConstante(baseW, wAtual);
+    return wDefinitivo;
+  }
+  
   calcularBaseOrtogonal(base) {
     if (this.validarBaseOrtogonal(base) == false) {
       let novaBase = [];
