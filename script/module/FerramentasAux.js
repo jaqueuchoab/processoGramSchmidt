@@ -130,8 +130,12 @@ export default class FerramentasAux extends Validacoes{
     let vetorResultante = [];
   
     if (this.validar(vetor) == true) {
-      for (let i = 0; i < vetor.length; i++) {
-        vetorResultante.push(vetor[i] / constante);
+      if(constante == 0) {
+        vetorResultante = vetor;
+      } else {
+        for (let i = 0; i < vetor.length; i++) {
+          vetorResultante.push(vetor[i] / constante);
+        }
       }
       return vetorResultante;
   
