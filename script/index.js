@@ -3,6 +3,9 @@ import FerramentasAux from "./module/FerramentasAux.js";
 import GramSchmidt from "./module/GramSchmidt.js";
 
 const ferramentas = new FerramentasAux();
+
+
+/*
 const gramSchmidt = new GramSchmidt();
 const baseEspaco = ferramentas.init();
 const espacoVetorial = baseEspaco[1];
@@ -14,3 +17,7 @@ console.log(baseOrtogonal, '\n');
 const baseOrtonormal = gramSchmidt.calcularBaseOrtonormal(baseOrtogonal);
 console.log('\nBase Ortonormal: ');
 console.log(baseOrtonormal, '\n');
+*/
+
+const produtoInterno = ferramentas.calcularProdutoInterno([1,1,1], [1,0,1]);
+console.log(produtoInterno);
