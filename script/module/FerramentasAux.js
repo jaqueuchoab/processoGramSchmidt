@@ -25,24 +25,24 @@ export default class FerramentasAux extends Validacoes{
     return base;
   }
   
-  imprimirBase(base, espacoVetorial) {
+  imprimirBase(base) {
     /*  String impressao utilizada para concatenar os elementos
       e evitar a quebra de linha do console.log();
     */
     if (this.validar(base) == true) {
       let impressaoBase = 'B = {';
   
-      for (let i = 0; i < espacoVetorial; i++) {
-        for (let j = 0; j < espacoVetorial; j++) {
+      for (let i = 0; i < base.length; i++) {
+        for (let j = 0; j < base.length; j++) {
           if (j == 0)
             impressaoBase += `(${base[i][j]},`;
-          else if (j != espacoVetorial - 1)
+          else if (j != base.length - 1)
             impressaoBase += `${base[i][j]},`;
           else
             impressaoBase += `${base[i][j]})`;
         }
   
-        if (i != espacoVetorial - 1)
+        if (i != base.length - 1)
           impressaoBase += ',';
         else
           impressaoBase += '}';
@@ -152,11 +152,10 @@ export default class FerramentasAux extends Validacoes{
   }
 
   init() {
-    this.base = [];
     this.espacoVetorial = prompt(
       'Digite a dimensão do espaço vetorial desejado: ',
     );
 
-    return [this.base, this.espacoVetorial];
+    return this.espacoVetorial;
   }
 }
